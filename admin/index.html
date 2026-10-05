@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<meta name="referrer" content="no-referrer" />
+<title>Admin · IRONFORGE FITNESS</title>
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('if-admin-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="__ADMIN_PATH__/assets/admin.css" />
+</head>
+<body>
+
+<!-- ===== Login ===== -->
+<main class="login" id="loginView" hidden>
+  <form class="login-card" id="loginForm" novalidate>
+    <div class="brand brand-lg">
+      <span class="brand-mark">IF</span>
+      <span class="brand-text">IRONFORGE<em>ADMIN</em></span>
+    </div>
+    <h1>Sign in</h1>
+    <p class="muted">Private dashboard for the IRONFORGE FITNESS team.</p>
+    <label class="field">
+      <span>Username</span>
+      <input id="loginUser" name="username" autocomplete="username" required />
+    </label>
+    <label class="field">
+      <span>Password</span>
+      <div class="pw-wrap">
+        <input id="loginPass" name="password" type="password" autocomplete="current-password" required />
+        <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show password">Show</button>
+      </div>
+    </label>
+    <p class="login-error" id="loginError" role="alert" hidden></p>
+    <button class="btn btn-primary btn-block" type="submit" id="loginBtn">Sign in</button>
+    <button type="button" class="link-btn theme-switch" data-theme-toggle>Switch theme</button>
+  </form>
+</main>
+
+<!-- ===== App ===== -->
+<div class="app" id="appView" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark">IF</span>
+      <span class="brand-text">IRONFORGE<em>ADMIN</em></span>
+    </div>
+    <nav class="nav" id="nav">
+      <a href="#overview" data-route="overview"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>Overview</a>
+      <a href="#enquiries" data-route="enquiries"><svg viewBox="0 0 24 24"><path d="M4 6.5h16v11H4z"/><path d="M4 7l8 6 8-6"/></svg>Enquiries <span class="nav-badge" id="badgeLeads" hidden></span></a>
+      <a href="#conversations" data-route="conversations"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H9l-4 4z"/></svg>AI conversations</a>
+      <a href="#subscribers" data-route="subscribers"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Subscribers</a>
+      <span class="nav-label">Manage</span>
+      <a href="#content" data-route="content"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4M8.5 12h7M8.5 16h7"/></svg>Website content</a>
+      <a href="#assistant" data-route="assistant"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>AI assistant</a>
+      <a href="#system" data-route="system"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></svg>System</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="side-link" href="/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5H5V6h5"/></svg>View website</a>
+      <button type="button" class="side-link" data-theme-toggle><svg viewBox="0 0 24 24"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1Z"/></svg><span data-theme-label>Light mode</span></button>
+      <button type="button" class="side-link" id="logoutBtn"><svg viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg>Sign out</button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div>
+        <h1 id="pageTitle">Overview</h1>
+        <p class="muted" id="pageSub"></p>
+      </div>
+      <div class="topbar-actions" id="pageActions"></div>
+    </header>
+    <section class="page" id="page" aria-live="polite"></section>
+  </div>
+</div>
+
+<!-- Save bar for content forms -->
+<div class="savebar" id="saveBar" hidden>
+  <span>You have unsaved changes</span>
+  <div>
+    <button type="button" class="btn btn-ghost" id="discardBtn">Discard</button>
+    <button type="button" class="btn btn-primary" id="saveBtn">Save changes</button>
+  </div>
+</div>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-scrim" data-close-drawer></div>
+  <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <header><h2 id="drawerTitle">Details</h2><button type="button" class="icon-btn" data-close-drawer aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header>
+    <div class="drawer-body" id="drawerBody"></div>
+  </aside>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="__ADMIN_PATH__/assets/admin.js"></script>
+</body>
+</html>

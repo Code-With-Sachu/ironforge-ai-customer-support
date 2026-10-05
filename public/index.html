@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IRONFORGE FITNESS | Forge Your Strongest Self</title>
+<meta name="description" content="IRONFORGE FITNESS — a premium strength & performance gym. Elite trainers, world-class equipment, and programs built to transform you." />
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#0a0a0c" />
+<script>
+  /* Theme bootstrap — applies saved/system theme before first paint */
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('if-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== Preloader ===== -->
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <span class="preloader-mark">IF</span>
+    <p class="preloader-label">IRONFORGE</p>
+    <p class="preloader-sub">Loading Experience&hellip;</p>
+    <div class="preloader-bar"><span></span></div>
+    <span class="preloader-pct" id="preloaderPct">0%</span>
+  </div>
+</div>
+
+<!-- ===== Custom Cursor Glow (decorative) ===== -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ===== Navigation ===== -->
+<header class="navbar" id="navbar">
+  <div class="announce" id="announceBar" hidden>
+    <div class="container announce-inner">
+      <span class="announce-dot" aria-hidden="true"></span>
+      <p id="announceText"></p>
+      <a href="#contact" id="announceLink" class="announce-link"></a>
+      <button type="button" class="announce-close" id="announceClose" aria-label="Dismiss announcement">&times;</button>
+    </div>
+  </div>
+  <div class="container navbar-inner">
+    <a href="#home" class="logo">
+      <span class="logo-mark">IF</span>
+      <span class="logo-text">IRONFORGE<em>FITNESS</em></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#programs" class="nav-link">Programs</a>
+      <a href="#trainers" class="nav-link">Trainers</a>
+      <a href="#membership" class="nav-link">Membership</a>
+      <a href="#gallery" class="nav-link">Gallery</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="navbar-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" title="Toggle light / dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1Z"/></svg>
+      </button>
+      <a href="#membership" class="btn btn-primary btn-sm">Join Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Mobile Menu Overlay ===== -->
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu-links">
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#programs" class="mobile-link">Programs</a>
+    <a href="#trainers" class="mobile-link">Trainers</a>
+    <a href="#membership" class="mobile-link">Membership</a>
+    <a href="#gallery" class="mobile-link">Gallery</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <button type="button" class="mobile-theme" data-theme-toggle>
+      <span>Appearance</span>
+      <span class="mobile-theme-value" data-theme-label>Dark</span>
+    </button>
+    <a href="#membership" class="btn btn-primary btn-block">Join Now</a>
+    <div class="mobile-socials">
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="Facebook">FB</a>
+      <a href="#" aria-label="YouTube">YT</a>
+      <a href="#" aria-label="TikTok">TT</a>
+    </div>
+  </div>
+</div>
+
+<main id="home">
+
+  <!-- ===== Hero Section ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-media">
+      <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+      <video class="hero-video" autoplay muted loop playsinline poster="hero.jpg">
+        <source src="gym-video.mp4" type="video/mp4">
+      </video>
+      <img class="hero-fallback-img" src="hero.jpg" alt="Athlete training inside IRONFORGE FITNESS gym" />
+      <div class="hero-overlay"></div>
+      <div class="hero-grain"></div>
+    </div>
+
+    <div class="container hero-content">
+      <p class="eyebrow reveal" data-reveal>
+        <span class="eyebrow-line"></span> Est. 2014 &mdash; Elite Strength &amp; Performance
+      </p>
+      <h1 class="hero-title reveal" data-reveal>
+        BUILD YOUR <span class="text-outline">STRONGEST</span> SELF
+      </h1>
+      <p class="hero-subtitle reveal" data-reveal>
+        World-class coaching, premium equipment, and a community obsessed with progress.
+        This is where discipline meets results.
+      </p>
+      <div class="hero-actions reveal" data-reveal>
+        <a href="#membership" class="btn btn-primary btn-lg">
+          <span>Join Now</span>
+        </a>
+        <a href="#programs" class="btn btn-outline btn-lg">
+          <span>Explore Programs</span>
+        </a>
+      </div>
+
+      <div class="hero-scroll reveal" data-reveal>
+        <span class="hero-scroll-line"></span>
+        <span>Scroll</span>
+      </div>
+    </div>
+
+    <div class="hero-badge reveal" data-reveal>
+      <div class="hero-badge-ring">
+        <span>#1 RATED GYM</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Marquee Strip ===== -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>STRENGTH</span><span>&#9670;</span>
+      <span>DISCIPLINE</span><span>&#9670;</span>
+      <span>PERFORMANCE</span><span>&#9670;</span>
+      <span>RESULTS</span><span>&#9670;</span>
+      <span>COMMUNITY</span><span>&#9670;</span>
+      <span>STRENGTH</span><span>&#9670;</span>
+      <span>DISCIPLINE</span><span>&#9670;</span>
+      <span>PERFORMANCE</span><span>&#9670;</span>
+      <span>RESULTS</span><span>&#9670;</span>
+      <span>COMMUNITY</span><span>&#9670;</span>
+    </div>
+  </div>
+
+  <!-- ===== About Section ===== -->
+  <section class="about section" id="about">
+    <div class="container about-grid">
+      <div class="about-media reveal" data-reveal>
+        <div class="about-img-wrap">
+          <img src="about1.jpg" alt="Interior view of IRONFORGE FITNESS training floor" class="about-img about-img-main" />
+          <img src="about2.jpg" alt="Trainer coaching a member at IRONFORGE FITNESS" class="about-img about-img-float" />
+        </div>
+        <div class="about-experience-card">
+          <span class="about-experience-number" data-counter data-target="11" data-stat="years">0</span>
+          <span class="about-experience-plus">+</span>
+          <span class="about-experience-label">Years of Excellence</span>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <p class="section-eyebrow reveal" data-reveal>Who We Are</p>
+        <h2 class="section-title reveal" data-reveal>
+          MORE THAN A GYM.<br />A <span class="text-accent">TRANSFORMATION</span> ENGINE.
+        </h2>
+        <p class="about-text reveal" data-reveal>
+          IRONFORGE FITNESS was founded on one belief: everyone has an untapped level of
+          strength waiting to be forged. We combine elite coaching, cutting-edge equipment,
+          and a relentless community to help you train harder, recover smarter, and become
+          the strongest version of yourself.
+        </p>
+
+        <ul class="about-features">
+          <li class="reveal" data-reveal>
+            <span class="about-feature-icon">01</span>
+            <div>
+              <h4>Certified Elite Coaches</h4>
+              <p>Every trainer is certified, experienced, and personally invested in your progress.</p>
+            </div>
+          </li>
+          <li class="reveal" data-reveal>
+            <span class="about-feature-icon">02</span>
+            <div>
+              <h4>Premium Equipment</h4>
+              <p>Top-tier strength, cardio, and functional training gear &mdash; always maintained.</p>
+            </div>
+          </li>
+          <li class="reveal" data-reveal>
+            <span class="about-feature-icon">03</span>
+            <div>
+              <h4>Results-Driven Programs</h4>
+              <p>Structured training paths engineered around real, measurable outcomes.</p>
+            </div>
+          </li>
+        </ul>
+
+        <a href="#programs" class="btn btn-dark reveal" data-reveal>
+          <span>Discover Our Programs</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Stats Section ===== -->
+  <section class="stats" id="stats">
+    <div class="container stats-grid">
+      <div class="stat-card reveal" data-reveal>
+        <span class="stat-number" data-counter data-target="4200" data-stat="members">0</span>
+        <span class="stat-plus">+</span>
+        <span class="stat-label">Active Members</span>
+      </div>
+      <div class="stat-card reveal" data-reveal>
+        <span class="stat-number" data-counter data-target="35" data-stat="trainers">0</span>
+        <span class="stat-plus">+</span>
+        <span class="stat-label">Expert Trainers</span>
+      </div>
+      <div class="stat-card reveal" data-reveal>
+        <span class="stat-number" data-counter data-target="11" data-stat="years">0</span>
+        <span class="stat-plus">+</span>
+        <span class="stat-label">Years Running</span>
+      </div>
+      <div class="stat-card reveal" data-reveal>
+        <span class="stat-number" data-counter data-target="150" data-stat="equipment">0</span>
+        <span class="stat-plus">+</span>
+        <span class="stat-label">Equipment Units</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Programs Section ===== -->
+  <section class="programs section" id="programs">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow reveal" data-reveal>Training Programs</p>
+        <h2 class="section-title reveal" data-reveal>
+          PROGRAMS ENGINEERED FOR <span class="text-accent">REAL RESULTS</span>
+        </h2>
+        <p class="section-desc reveal" data-reveal>
+          Whatever your goal, we have a structured path built by professionals to get you there faster.
+        </p>
+      </div>
+
+      <div class="programs-grid">
+        <article class="program-card reveal" data-reveal data-module="strength" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open 3D preview: Strength Training">
+          <div class="program-media">
+            <img src="program1.jpg" alt="Strength Training program at IRONFORGE FITNESS" />
+            <span class="program-index">01</span>
+            <span class="program-3d-badge" aria-hidden="true">3D Preview</span>
+          </div>
+          <div class="program-body">
+            <h3>Strength Training</h3>
+            <p>Build raw power with progressive overload programming and expert form coaching.</p>
+            <a href="#contact" class="program-link">Learn More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="program-card reveal" data-reveal data-module="weightloss" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open 3D preview: Weight Loss">
+          <div class="program-media">
+            <img src="program2.jpg" alt="Weight Loss program at IRONFORGE FITNESS" />
+            <span class="program-index">02</span>
+            <span class="program-3d-badge" aria-hidden="true">3D Preview</span>
+          </div>
+          <div class="program-body">
+            <h3>Weight Loss</h3>
+            <p>High-intensity conditioning and nutrition guidance to burn fat and boost metabolism.</p>
+            <a href="#contact" class="program-link">Learn More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="program-card reveal" data-reveal data-module="muscle" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open 3D preview: Muscle Building">
+          <div class="program-media">
+            <img src="program3.jpg" alt="Muscle Building program at IRONFORGE FITNESS" />
+            <span class="program-index">03</span>
+            <span class="program-3d-badge" aria-hidden="true">3D Preview</span>
+          </div>
+          <div class="program-body">
+            <h3>Muscle Building</h3>
+            <p>Hypertrophy-focused training blocks designed to maximize lean muscle growth.</p>
+            <a href="#contact" class="program-link">Learn More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="program-card reveal" data-reveal data-module="personal" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open 3D preview: Personal Training">
+          <div class="program-media">
+            <img src="program4.jpg" alt="Personal Training program at IRONFORGE FITNESS" />
+            <span class="program-index">04</span>
+            <span class="program-3d-badge" aria-hidden="true">3D Preview</span>
+          </div>
+          <div class="program-body">
+            <h3>Personal Training</h3>
+            <p>One-on-one coaching tailored entirely to your goals, schedule, and pace.</p>
+            <a href="#contact" class="program-link">Learn More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="program-card reveal" data-reveal data-module="functional" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open 3D preview: Functional Fitness">
+          <div class="program-media">
+            <img src="program5.jpg" alt="Functional Fitness program at IRONFORGE FITNESS" />
+            <span class="program-index">05</span>
+            <span class="program-3d-badge" aria-hidden="true">3D Preview</span>
+          </div>
+          <div class="program-body">
+            <h3>Functional Fitness</h3>
+            <p>Full-body movement training that builds real-world strength, mobility, and balance.</p>
+            <a href="#contact" class="program-link">Learn More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="program-card program-card-cta reveal" data-reveal>
+          <div class="program-cta-content">
+            <h3>Not Sure Where<br />to Start?</h3>
+            <p>Book a free consultation and our coaches will design a plan around your goals.</p>
+            <a href="#contact" class="btn btn-primary">
+              <span>Get A Free Plan</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Trainers Section ===== -->
+  <section class="trainers section" id="trainers">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow reveal" data-reveal>Meet The Team</p>
+        <h2 class="section-title reveal" data-reveal>
+          TRAIN WITH THE <span class="text-accent">BEST</span> IN THE INDUSTRY
+        </h2>
+        <p class="section-desc reveal" data-reveal>
+          Certified. Experienced. Genuinely invested in getting you results.
+        </p>
+      </div>
+
+      <div class="trainers-grid" id="trainersGrid">
+        <article class="trainer-card reveal" data-reveal>
+          <div class="trainer-media">
+            <img src="trainer1.jpg" alt="Marcus Reed, Head Strength Coach at IRONFORGE FITNESS" />
+            <div class="trainer-socials">
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="LinkedIn">IN</a>
+              <a href="#" aria-label="Twitter">TW</a>
+            </div>
+          </div>
+          <div class="trainer-info">
+            <h3>Marcus Reed</h3>
+            <span>Head Strength Coach</span>
+          </div>
+        </article>
+
+        <article class="trainer-card reveal" data-reveal>
+          <div class="trainer-media">
+            <img src="trainer2.jpg" alt="Elena Cruz, Nutrition & Weight Loss Specialist at IRONFORGE FITNESS" />
+            <div class="trainer-socials">
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="LinkedIn">IN</a>
+              <a href="#" aria-label="Twitter">TW</a>
+            </div>
+          </div>
+          <div class="trainer-info">
+            <h3>Elena Cruz</h3>
+            <span>Nutrition &amp; Weight Loss</span>
+          </div>
+        </article>
+
+        <article class="trainer-card reveal" data-reveal>
+          <div class="trainer-media">
+            <img src="trainer3.jpg" alt="Jordan Blake, Personal Training Director at IRONFORGE FITNESS" />
+            <div class="trainer-socials">
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="LinkedIn">IN</a>
+              <a href="#" aria-label="Twitter">TW</a>
+            </div>
+          </div>
+          <div class="trainer-info">
+            <h3>Jordan Blake</h3>
+            <span>Personal Training Director</span>
+          </div>
+        </article>
+
+        <article class="trainer-card reveal" data-reveal>
+          <div class="trainer-media">
+            <img src="trainer4.jpg" alt="Sofia Marchetti, Functional Fitness Coach at IRONFORGE FITNESS" />
+            <div class="trainer-socials">
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="LinkedIn">IN</a>
+              <a href="#" aria-label="Twitter">TW</a>
+            </div>
+          </div>
+          <div class="trainer-info">
+            <h3>Sofia Marchetti</h3>
+            <span>Functional Fitness Coach</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Membership / Pricing Section ===== -->
+  <section class="membership section" id="membership">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow reveal" data-reveal>Membership Plans</p>
+        <h2 class="section-title reveal" data-reveal>
+          CHOOSE YOUR <span class="text-accent">PATH</span> TO STRENGTH
+        </h2>
+        <p class="section-desc reveal" data-reveal>
+          Flexible plans built for every level of commitment. No hidden fees. Cancel anytime.
+        </p>
+      </div>
+
+      <div class="pricing-grid" id="pricingGrid">
+        <article class="price-card reveal" data-reveal>
+          <div class="price-head">
+            <h3>Basic</h3>
+            <p>For those starting their journey</p>
+          </div>
+          <div class="price-value">
+            <span class="price-currency">$</span>
+            <span class="price-amount">29</span>
+            <span class="price-period">/mo</span>
+          </div>
+          <ul class="price-features">
+            <li>Full gym floor access</li>
+            <li>Standard equipment access</li>
+            <li>Locker room &amp; showers</li>
+            <li>1 group class / week</li>
+            <li class="disabled">Personal training sessions</li>
+            <li class="disabled">Nutrition coaching</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline btn-block">
+            <span>Get Started</span>
+          </a>
+        </article>
+
+        <article class="price-card price-card-featured reveal" data-reveal>
+          <span class="price-badge">Most Popular</span>
+          <div class="price-head">
+            <h3>Pro</h3>
+            <p>Our most popular performance plan</p>
+          </div>
+          <div class="price-value">
+            <span class="price-currency">$</span>
+            <span class="price-amount">59</span>
+            <span class="price-period">/mo</span>
+          </div>
+          <ul class="price-features">
+            <li>Full gym floor access</li>
+            <li>Premium equipment access</li>
+            <li>Locker room &amp; showers</li>
+            <li>Unlimited group classes</li>
+            <li>2 personal training sessions</li>
+            <li class="disabled">1-on-1 nutrition coaching</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary btn-block">
+            <span>Get Started</span>
+          </a>
+        </article>
+
+        <article class="price-card reveal" data-reveal>
+          <div class="price-head">
+            <h3>Elite</h3>
+            <p>Total access, total transformation</p>
+          </div>
+          <div class="price-value">
+            <span class="price-currency">$</span>
+            <span class="price-amount">99</span>
+            <span class="price-period">/mo</span>
+          </div>
+          <ul class="price-features">
+            <li>24/7 full facility access</li>
+            <li>Premium equipment access</li>
+            <li>Private locker &amp; towel service</li>
+            <li>Unlimited group classes</li>
+            <li>Unlimited personal training</li>
+            <li>1-on-1 nutrition coaching</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline btn-block">
+            <span>Get Started</span>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Video Feature Section ===== -->
+  <section class="video-feature" id="video">
+    <div class="video-feature-media">
+      <video class="video-feature-video" muted loop playsinline poster="gym-video-poster.jpg" id="featureVideo">
+        <source src="gym-video.mp4" type="video/mp4">
+      </video>
+      <div class="video-feature-overlay"></div>
+    </div>
+    <div class="container video-feature-content">
+      <button class="play-btn reveal" id="playBtn" data-reveal aria-label="Play gym showcase video">
+        <span class="play-btn-ring"></span>
+        <span class="play-btn-icon">&#9658;</span>
+      </button>
+      <h2 class="reveal" data-reveal>STEP INSIDE THE <span class="text-outline">FORGE</span></h2>
+      <p class="reveal" data-reveal>Take a look at what a session inside IRONFORGE FITNESS really feels like.</p>
+    </div>
+  </section>
+
+  <!-- ===== Gallery Section ===== -->
+  <section class="gallery section" id="gallery">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow reveal" data-reveal>The Gallery</p>
+        <h2 class="section-title reveal" data-reveal>
+          INSIDE THE <span class="text-accent">IRONFORGE</span> EXPERIENCE
+        </h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item item-1 reveal" data-reveal>
+          <img src="gallery1.jpg" alt="Free weights area at IRONFORGE FITNESS" />
+          <div class="gallery-overlay"><span>Free Weights Zone</span></div>
+        </div>
+        <div class="gallery-item item-2 reveal" data-reveal>
+          <img src="gallery2.jpg" alt="Group training class at IRONFORGE FITNESS" />
+          <div class="gallery-overlay"><span>Group Training</span></div>
+        </div>
+        <div class="gallery-item item-3 reveal" data-reveal>
+          <img src="gallery3.jpg" alt="Cardio deck at IRONFORGE FITNESS" />
+          <div class="gallery-overlay"><span>Cardio Deck</span></div>
+        </div>
+        <div class="gallery-item item-4 reveal" data-reveal>
+          <img src="gallery4.jpg" alt="Personal training session at IRONFORGE FITNESS" />
+          <div class="gallery-overlay"><span>1-on-1 Coaching</span></div>
+        </div>
+        <div class="gallery-item item-5 reveal" data-reveal>
+          <img src="gallery5.jpg" alt="Functional training rig at IRONFORGE FITNESS" />
+          <div class="gallery-overlay"><span>Functional Rig</span></div>
+        </div>
+        <div class="gallery-item item-6 reveal" data-reveal>
+          <img src="gallery6.jpg" alt="Recovery and stretch zone at IRONFORGE FITNESS" />
+          <div class="gallery-overlay"><span>Recovery Zone</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials Section ===== -->
+  <section class="testimonials section" id="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow reveal" data-reveal>Success Stories</p>
+        <h2 class="section-title reveal" data-reveal>
+          WHAT OUR <span class="text-accent">MEMBERS</span> SAY
+        </h2>
+      </div>
+
+      <div class="testimonial-track reveal" data-reveal>
+        <div class="testimonial-slides" id="testimonialSlides">
+          <article class="testimonial-card active">
+            <p class="testimonial-quote">&ldquo;IRONFORGE completely changed how I train. Down 30lbs and stronger than I've ever been. The coaches actually care about your progress.&rdquo;</p>
+            <div class="testimonial-author">
+              <img src="testimonial1.jpg" alt="Photo of member Aaron Whitfield" />
+              <div>
+                <h4>Aaron Whitfield</h4>
+                <span>Member since 2022</span>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <p class="testimonial-quote">&ldquo;The Personal Training program is worth every penny. I finally hit my first pull-up after years of trying elsewhere.&rdquo;</p>
+            <div class="testimonial-author">
+              <img src="testimonial2.jpg" alt="Photo of member Priya Nandan" />
+              <div>
+                <h4>Priya Nandan</h4>
+                <span>Member since 2021</span>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <p class="testimonial-quote">&ldquo;Best facility in the city, hands down. Clean, premium equipment, and a community that pushes you to show up.&rdquo;</p>
+            <div class="testimonial-author">
+              <img src="testimonial3.jpg" alt="Photo of member David Kim" />
+              <div>
+                <h4>David Kim</h4>
+                <span>Member since 2023</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="testimonial-controls">
+          <button class="testimonial-btn" id="testimonialPrev" aria-label="Previous testimonial">&larr;</button>
+          <div class="testimonial-dots" id="testimonialDots"></div>
+          <button class="testimonial-btn" id="testimonialNext" aria-label="Next testimonial">&rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Hours + Location Section ===== -->
+  <section class="info-section section" id="info">
+    <div class="container info-grid">
+      <div class="info-card reveal" data-reveal>
+        <h3>Opening Hours</h3>
+        <ul class="hours-list" id="hoursList">
+          <li><span>Monday &ndash; Friday</span><span>05:00 &ndash; 23:00</span></li>
+          <li><span>Saturday</span><span>07:00 &ndash; 21:00</span></li>
+          <li><span>Sunday</span><span>08:00 &ndash; 18:00</span></li>
+          <li class="hours-note"><span>Public Holidays</span><span>09:00 &ndash; 15:00</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card reveal" data-reveal>
+        <h3>Our Location</h3>
+        <p class="info-text">
+          <span data-bind="contact.addressLine1">228 Iron District Avenue</span><br />
+          <span data-bind="contact.addressLine2">Downtown Metro City, MC 10245</span>
+        </p>
+        <p class="info-text">
+          <strong>Phone:</strong> <a data-bind="contact.phone" data-href="tel" href="tel:5558124470">(555) 812-4470</a><br />
+          <strong>Email:</strong> <a data-bind="contact.email" data-href="mailto" href="mailto:hello@ironforgefitness.com">hello@ironforgefitness.com</a>
+        </p>
+        <div class="map-placeholder" id="mapBox">
+          <span>Map Location Placeholder</span>
+        </div>
+      </div>
+
+      <div class="info-card reveal" data-reveal>
+        <h3>Follow Us</h3>
+        <p class="info-text">Stay connected for training tips, transformations, and community events.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram"><span>Instagram</span></a>
+          <a href="#" aria-label="Facebook"><span>Facebook</span></a>
+          <a href="#" aria-label="YouTube"><span>YouTube</span></a>
+          <a href="#" aria-label="TikTok"><span>TikTok</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ Section (content managed in admin) ===== -->
+  <section class="faq section" id="faq">
+    <div class="container faq-grid">
+      <div class="faq-intro">
+        <p class="section-eyebrow reveal" data-reveal>FAQ</p>
+        <h2 class="section-title reveal" data-reveal>
+          QUESTIONS, <span class="text-accent">ANSWERED</span>
+        </h2>
+        <p class="section-desc reveal" data-reveal>
+          Can't find what you need? Ask our AI coach by voice or chat &mdash; or send us an enquiry.
+        </p>
+        <button type="button" class="btn btn-outline reveal" data-reveal data-open-assistant>
+          <span>Ask the AI Coach</span>
+        </button>
+      </div>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- ===== Contact / Enquiry Section ===== -->
+  <section class="contact section" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-intro">
+        <p class="section-eyebrow reveal" data-reveal>Get In Touch</p>
+        <h2 class="section-title reveal" data-reveal>
+          START YOUR <span class="text-accent">TRANSFORMATION</span> TODAY
+        </h2>
+        <p class="section-desc reveal" data-reveal>
+          Fill out the form and one of our coaches will reach out within 24 hours to
+          help you find the right program.
+        </p>
+
+        <div class="contact-detail reveal" data-reveal>
+          <span class="contact-detail-label">Call Us</span>
+          <a class="contact-detail-value" data-bind="contact.phone" data-href="tel" href="tel:5558124470">(555) 812-4470</a>
+        </div>
+        <div class="contact-detail reveal" data-reveal>
+          <span class="contact-detail-label">Email Us</span>
+          <a class="contact-detail-value" data-bind="contact.email" data-href="mailto" href="mailto:hello@ironforgefitness.com">hello@ironforgefitness.com</a>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" data-reveal id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="John Carter" required />
+            <span class="form-error">Please enter your name</span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required />
+            <span class="form-error">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" />
+          </div>
+          <div class="form-group">
+            <label for="interest">Program of Interest</label>
+            <select id="interest" name="interest">
+              <option value="strength">Strength Training</option>
+              <option value="weightloss">Weight Loss</option>
+              <option value="muscle">Muscle Building</option>
+              <option value="personal">Personal Training</option>
+              <option value="functional">Functional Fitness</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-hp" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us about your goals..." required></textarea>
+          <span class="form-error">Please enter a message</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">
+          <span>Send Enquiry</span>
+        </button>
+
+        <p class="form-success" id="formSuccess" role="status">Thanks! Your enquiry has been received &mdash; we'll be in touch shortly.</p>
+        <p class="form-fail" id="formFail" role="alert">Sorry, we couldn't send that right now. Please call or email us instead.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA Banner ===== -->
+  <section class="cta-banner">
+    <div class="container cta-banner-inner reveal" data-reveal>
+      <h2>YOUR STRONGEST SELF IS <span class="text-outline">ONE DECISION</span> AWAY</h2>
+      <a href="#membership" class="btn btn-primary btn-lg">
+        <span>Join IRONFORGE Today</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="#home" class="logo">
+        <span class="logo-mark">IF</span>
+        <span class="logo-text">IRONFORGE<em>FITNESS</em></span>
+      </a>
+      <p data-bind="brand.tagline">Premium strength &amp; performance training for people who refuse to settle.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><span>Instagram</span></a>
+        <a href="#" aria-label="Facebook"><span>Facebook</span></a>
+        <a href="#" aria-label="YouTube"><span>YouTube</span></a>
+        <a href="#" aria-label="TikTok"><span>TikTok</span></a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h4>Explore</h4>
+      <a href="#about">About Us</a>
+      <a href="#programs">Programs</a>
+      <a href="#trainers">Trainers</a>
+      <a href="#membership">Membership</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#faq">FAQ</a>
+    </div>
+
+    <div class="footer-links">
+      <h4>Programs</h4>
+      <a href="#programs">Strength Training</a>
+      <a href="#programs">Weight Loss</a>
+      <a href="#programs">Muscle Building</a>
+      <a href="#programs">Personal Training</a>
+      <a href="#programs">Functional Fitness</a>
+    </div>
+
+    <div class="footer-newsletter">
+      <h4>Stay Updated</h4>
+      <p>Get training tips and exclusive offers straight to your inbox.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" aria-label="Subscribe">&rarr;</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; <span id="year"></span> IRONFORGE FITNESS. All rights reserved.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== AI Agent (built by ai-agent.js — draggable, voice + chat) ===== -->
+<div class="ai-assistant" id="aiAssistant" data-state="idle"></div>
+
+<!-- ===== Back To Top ===== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+<!-- ===== Program Module 3D Entry Modal =====
+     Opened by clicking a program card in #programs (see data-module
+     attributes). module-3d.js builds a themed Three.js "entry" animation
+     — barbell, kettlebell, dumbbell, focus rings, or battle rope — inside
+     this shared modal stage. Degrades to a CSS-only ring if WebGL is
+     unavailable, and respects prefers-reduced-motion. -->
+<div class="module-modal" id="moduleModal" aria-hidden="true">
+  <div class="module-modal-backdrop" data-modal-close></div>
+  <div class="module-modal-panel" role="dialog" aria-modal="true" aria-labelledby="moduleModalTitle">
+    <button class="module-modal-close" id="moduleModalClose" data-modal-close aria-label="Close 3D preview">&times;</button>
+
+    <div class="module-modal-stage">
+      <canvas class="module-modal-canvas" id="moduleModalCanvas" aria-hidden="true"></canvas>
+      <div class="module-modal-fallback" id="moduleModalFallback" aria-hidden="true">
+        <span class="module-modal-fallback-ring"></span>
+      </div>
+      <div class="module-modal-loading" id="moduleModalLoading" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="module-modal-content" id="moduleModalContent">
+      <span class="module-modal-index" id="moduleModalIndex">01</span>
+      <h3 id="moduleModalTitle">Strength Training</h3>
+      <p id="moduleModalDesc">Build raw power with progressive overload programming and expert form coaching.</p>
+      <a href="#contact" class="btn btn-primary" id="moduleModalCta">Start This Program</a>
+    </div>
+  </div>
+</div>
+
+<!-- GSAP + ScrollTrigger power the cinematic scroll-driven camera and
+     section transitions used by hero-3d.js. hero-3d.js works without
+     them too (plain-scroll fallback) if these fail to load. -->
+<script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<script type="module" src="hero-3d.js"></script>
+<script type="module" src="module-3d.js"></script>
+<script src="script.js"></script>
+<script src="site-content.js"></script>
+<script src="ai-agent.js"></script>
+</body>
+</html>

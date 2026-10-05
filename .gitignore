@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Live data written by the server (content edits, enquiries, chat logs)
+data/
+
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
